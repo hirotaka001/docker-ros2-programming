@@ -1,0 +1,14 @@
+https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver/issues/65
+
+https://www.google.com/search?q=%2Fhls_lfcd_lds_driver%2Fsrc%2Fhlds_laser_publisher.cpp%3A148%3A46%3A+error%3A&oq=%2Fhls_lfcd_lds_driver%2Fsrc%2Fhlds_laser_publisher.cpp%3A148%3A46%3A+error%3A&aqs=chrome..69i57j69i58.2027j0j7&sourceid=chrome&ie=UTF-8
+
+
+/hls_lfcd_lds_driver/src/hlds_laser_publisher.cpp:148:46: error:
+
+no matching function for call to 'rclcpp::Node::declare_parameter<std::__cxx11::string>(const char [5])'
+
+#28 84.06    node->declare_parameter<std::string>("port");
+
+
+
+https://gitlab.com/it-book/docker-ros2-programming/-/issues/2
