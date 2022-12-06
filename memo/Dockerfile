@@ -21,7 +21,7 @@ RUN apt-get update -q
 RUN apt-get install -yq ros-galactic-desktop
 
 # ROS2 ツールのインストール
-RUN apt-get install -yq python3-argcomplete python3-colcon-common-extensions python3-vcstool
+RUN apt-get install -yq python3-argcomplete python3-colcon-common-extensions python3-vcstool python3-rosdep
 
 # Turtlesim のインストール
 RUN apt-get install -yq ros-galactic-turtlesim ros-galactic-gazebo-ros-*
