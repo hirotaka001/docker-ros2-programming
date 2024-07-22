@@ -1,0 +1,4 @@
+# Save 2Dmap
+ros2 run nav2_map_server map_saver_cli -f ~/ros2_ws/map
+# View 2Dmap
+eog ~/ros2_ws/map.pgm
