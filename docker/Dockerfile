@@ -24,7 +24,7 @@ RUN apt-get install -yq ros-humble-desktop
 RUN apt-get install -yq python3-argcomplete python3-colcon-common-extensions python3-vcstool python3-rosdep
 
 # Turtlesim のインストール
-RUN apt-get install -yq ros-humble-turtlesim ros-humble-turtlebot3-gazebo ros-humble-gazebo-*
+RUN apt-get install -yq ros-humble-turtlesim ros-humble-turtlebot3 ros-humble-turtlebot3-gazebo ros-humble-gazebo-*
 
 # TurtleBot3 のインストール
 ## Cartgrapher の依存パッケージ
