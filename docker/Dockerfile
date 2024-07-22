@@ -12,6 +12,14 @@ RUN apt-get update -q && \
     apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools && \
     rm -rf /var/lib/apt/lists/*
 
+# VSCodeのインストール
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+RUN install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+RUN sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+RUN apt install apt-transport-https && \
+    apt update  && \
+    apt install code
+
 # ROS2 Humbleと演習に必要なパッケージのインストール
 RUN curl -Ls https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 RUN sh -c 'echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
