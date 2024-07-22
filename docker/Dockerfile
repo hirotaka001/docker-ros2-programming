@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND = noninteractive
 # インストール時に必要なパッケージのインストール
 RUN apt-get update -q && \
     apt-get upgrade -yq && \
-    apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps eog iputils-ping net-tools && \
+    apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools && \
     rm -rf /var/lib/apt/lists/*
 
 # ROS2 Humbleと演習に必要なパッケージのインストール
@@ -24,50 +24,50 @@ RUN apt-get install -yq ros-humble-desktop
 RUN apt-get install -yq python3-argcomplete python3-colcon-common-extensions python3-vcstool python3-rosdep
 
 # Turtlesim のインストール
-RUN apt-get install -yq ros-humble-turtlesim ros-humble-gazebo-ros-*
+RUN apt-get install -yq ros-humble-turtlesim ros-humble-turtlebot3-gazebo ros-humble-gazebo-*
 
 # TurtleBot3 のインストール
 ## Cartgrapher の依存パッケージ
 RUN apt-get install -yq google-mock libceres-dev liblua5.3-dev libboost-dev libboost-iostreams-dev libprotobuf-dev protobuf-compiler libcairo2-dev libpcl-dev python3-sphinx
 
 ## Cartographerのインストール
-RUN apt-get install -yq ros-humble-cartographer ros-humble-cartographer-ros ros-humble-navigation2 ros-humble-nav2-bringup
+RUN apt-get install -yq ros-humble-cartographer ros-humble-cartographer-ros ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-xacro
 
 # ワークディレクトリの設定
 WORKDIR /root
 SHELL ["/bin/bash", "-c"]
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc && \
-: "commnet"
+    : "commnet"
 RUN source /opt/ros/humble/setup.bash
 RUN mkdir -p ~/ros2_ws/src
 
 # 公式ROS2 サンプルのダウンロード
-RUN cd ~/ros2_ws/src &&\
-git clone -b humble https://github.com/ros2/examples ros2_examples
+RUN cd ~/ros2_ws/src && \
+    git clone -b humble https://github.com/ros2/examples ros2_examples
 
 # TurtleBot3 開発環境のダウンロード
-RUN cd ~/ros2_ws &&\
-wget https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/ros2/turtlebot3.repos && vcs import src < turtlebot3.repos
+RUN cd ~/ros2_ws && \
+    wget https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/ros2/turtlebot3.repos && vcs import src < turtlebot3.repos
 
 RUN set -x
-RUN echo "export ROS_DOMAIN_ID=30 #TURTLEBOT3" >> ~/.bashrc &&\
-: "commnet"
-RUN echo "export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_ws/src/turtlebot3/turtlebot3_simulations/turtlebot3_gazebo/models" >> ~/.bashrc &&\
-: "commnet"
-RUN echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc &&\
-: "commnet"
+RUN echo "export ROS_DOMAIN_ID=1 #TURTLEBOT3" >> ~/.bashrc && \
+    : "commnet"
+RUN echo "export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/ros2_ws/src/turtlebot3/turtlebot3_simulations/turtlebot3_gazebo/models" >> ~/.bashrc && \
+    : "commnet"
+RUN echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc && \
+    : "commnet"
 
 # ホストPCのディレクトリをワークスペースにシンボリックリンクする
 # Dockerコンテナが終了しても変更内容が保存される
-RUN cd ~/ros2_ws/src &&\
+RUN cd ~/ros2_ws/src && \
 ln -s ~/docker_workspace/ros2_ws/src .
 
 # ROS2 ワークスペースのビルド
 RUN set -x
-RUN cd ~/ros2_ws &&\
-source /opt/ros/humble/setup.bash &&\
-MAKEFLAGS="-j1 -l1" colcon build --symlink-install --executor sequential
-RUN echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc &&\
-: "commnet"
-RUN echo "source ~/ros2_ws/install/local_setup.bash" >> ~/.bashrc &&\
-: "commnet"
+RUN cd ~/ros2_ws && \
+    source /opt/ros/humble/setup.bash && \
+    MAKEFLAGS="-j1 -l1" colcon build --symlink-install --executor sequential
+RUN echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc && \
+    : "commnet"
+RUN echo "source ~/ros2_ws/install/local_setup.bash" >> ~/.bashrc && \
+    : "commnet"
