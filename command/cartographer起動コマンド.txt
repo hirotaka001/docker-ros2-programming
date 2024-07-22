@@ -1,1 +1,6 @@
+# Start cartographer
 ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
+# Save 2Dmap
+ros2 run nav2_map_server map_server ros2_ws/2Dmap
+# View 2Dmap
+eog ros2_ws/2Dmap.pgm
