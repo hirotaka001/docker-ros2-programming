@@ -1,0 +1,1 @@
+docker build --tag jazzy/ubuntu:24.04 . -f Dockerfile_jazzy

@@ -1,0 +1,1 @@
+docker build --tag humble/ubuntu:22.04 .
