@@ -7,51 +7,53 @@ ENV TZ JST-9
 ENV DEBIAN_FRONTEND = noninteractive
 
 # ロケール設定
-RUN apt update && apt install locales
+RUN apt-get update -q && \
+    apt-get upgrade -yq && \
+RUN apt-get install -yq locales-all
 RUN locale-gen en_US en_US.UTF-8
 RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 RUN echo "export LANG=en_US.UTF-8" >> ~/.bashrc && \
     : "commnet"
 
 # インストール時に必要なパッケージのインストール
-RUN apt update -q && \
-    apt upgrade -yq && \
-    apt install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools software-properties-common && \
-    rm -rf /var/lib/apt/lists/*
-RUN add-apt-repository universe
+RUN apt-get update -q && \
+    apt-get upgrade -yq && \
+    apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools software-properties-common && \
+    rm -rf /var/lib/apt-get/lists/*
+RUN add-apt-get-repository universe
 
 # VSCodeのインストール
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-RUN install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-RUN sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-RUN apt install -yq apt-transport-https && \
-    apt update -q  && \
-    apt install -yq code
+RUN install -o root -g root -m 644 microsoft.gpg /etc/apt-get/trusted.gpg.d/
+RUN sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt-get/sources.list.d/vscode.list'
+RUN apt-get install -yq apt-get-transport-https && \
+    apt-get update -q  && \
+    apt-get install -yq code
 
 # ROS2 Jazzyと演習に必要なパッケージのインストール
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-RUN curl -Ls https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
-RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null'
-RUN apt update -q
+RUN curl -Ls https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-get-key add -
+RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt-get/sources.list.d/ros2.list > /dev/null'
+RUN apt-get update -q
 
 # 開発ツールのインストール
-RUN apt install -yq ros-dev-tools
+RUN apt-get install -yq ros-dev-tools
 
 # ROS2 Jazzyのインストール
-RUN apt install -yq ros-jazzy-desktop
+RUN apt-get install -yq ros-jazzy-desktop
 
 # ROS2 ツールのインストール
-RUN apt install -yq python3-argcomplete python3-colcon-common-extensions python3-vcstool python3-rosdep
+RUN apt-get install -yq python3-argcomplete python3-colcon-common-extensions python3-vcstool python3-rosdep
 
 # Turtlesim のインストール
-RUN apt install -yq ros-jazzy-turtlesim ros-jazzy-turtlebot3 ros-jazzy-turtlebot3-gazebo ros-jazzy-gazebo-*
+RUN apt-get install -yq ros-jazzy-turtlesim ros-jazzy-turtlebot3 ros-jazzy-turtlebot3-gazebo ros-jazzy-gazebo-*
 
 # TurtleBot3 のインストール
 ## Cartgrapher の依存パッケージ
-RUN apt install -yq google-mock libceres-dev liblua5.3-dev libboost-dev libboost-iostreams-dev libprotobuf-dev protobuf-compiler libcairo2-dev libpcl-dev python3-sphinx
+RUN apt-get install -yq google-mock libceres-dev liblua5.3-dev libboost-dev libboost-iostreams-dev libprotobuf-dev protobuf-compiler libcairo2-dev libpcl-dev python3-sphinx
 
 ## Cartographerのインストール
-RUN apt install -yq ros-jazzy-cartographer ros-jazzy-cartographer-ros ros-jazzy-navigation2 ros-jazzy-nav2-bringup ros-jazzy-xacro
+RUN apt-get install -yq ros-jazzy-cartographer ros-jazzy-cartographer-ros ros-jazzy-navigation2 ros-jazzy-nav2-bringup ros-jazzy-xacro
 
 # ワークディレクトリの設定
 WORKDIR /root
