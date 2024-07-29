@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND = noninteractive
 # インストール時に必要なパッケージのインストール
 RUN apt-get update -q && \
     apt-get upgrade -yq && \
-    apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools nmap ufw && \
+    apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools && \
     rm -rf /var/lib/apt/lists/*
 
 # ROS2 Humbleと演習に必要なパッケージのインストール
