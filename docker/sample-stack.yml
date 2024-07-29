@@ -1,0 +1,18 @@
+# sample-stack.yml
+version: '3'
+services:
+  web:
+    image: humble/ubuntu:22.04
+    ports:
+      - "8000:8000"
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: vip
+      placement:
+        constraints: [node.role!=manager, node.hostname!=192.168.137.5]
+    networks:
+      - ros2network
+networks:
+  ingress:
+    external: true

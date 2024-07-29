@@ -1,1 +1,1 @@
-docker build --tag humble/ubuntu:22.04 .
+docker build --tag humble/ubuntu:22.04 Dockerfile_humble
