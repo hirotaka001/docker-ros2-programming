@@ -18,5 +18,6 @@ docker run -it \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
+    --net=host \
     --rm -v /home/hht/docker_workspace/ros2_ws:/root/ros2_ws -w /root humble/ubuntu:22.04
 echo "done"

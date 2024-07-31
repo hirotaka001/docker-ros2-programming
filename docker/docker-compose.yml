@@ -1,10 +1,16 @@
 version: '3'
 
 services:
-  client:
+  ros-pub:
+    container_name: rospub
     image: humble/ubuntu:22.04
     command: "tail -f /dev/null"
+    network_mode: host
+    ipc: host
 
-  web:
+  ros-sub:
+    container_name: rossub
     image: humble/ubuntu:22.04
     command: "tail -f /dev/null"
+    network_mode: host
+    ipc: host
