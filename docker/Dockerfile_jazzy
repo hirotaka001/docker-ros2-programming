@@ -64,7 +64,7 @@ RUN echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc && \
 # ホストPCのディレクトリをワークスペースにシンボリックリンクする
 # Dockerコンテナが終了しても変更内容が保存される
 RUN cd ~/ros2_ws/src && \
-ln -s ~/docker_workspace/ros2_ws/src .
+    ln -s ~/docker_workspace/ros2_ws/src .
 
 # ROS2 ワークスペースのビルド
 RUN set -x

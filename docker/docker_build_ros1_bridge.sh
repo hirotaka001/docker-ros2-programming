@@ -1,0 +1,1 @@
+docker build --tag ros1_bridge . -f Dockerfile_ros1_bridge
