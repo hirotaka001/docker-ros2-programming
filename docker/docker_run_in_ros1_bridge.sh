@@ -19,5 +19,5 @@ docker run -it \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
     --net=host \
-    --rm -v /home/hht/docker_workspace/ros1_bridge:/root/ros1_bridge -w /root ros1_bridge
+    --rm -v /home/hht/docker_workspace/ros2_ws_foxy:/root/ros2_ws_foxy -w /root ros1_bridge
 echo "done"

@@ -71,3 +71,11 @@ RUN echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc && \
     : "commnet"
 RUN echo "source ~/ros2_ws/install/local_setup.bash" >> ~/.bashrc && \
     : "commnet"
+
+# VSCodeのダウンロード
+RUN cd ~/ros2_ws && \
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
+    install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg && \
+    sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list' && \
+    apt-get update -q && \
+    apt-get install -yq code
