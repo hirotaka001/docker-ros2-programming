@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND = noninteractive
 # インストール時に必要なパッケージのインストール
 RUN apt-get update -q && \
     apt-get upgrade -yq && \
-    apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools && \
+    apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
 # ROS2 Humbleと演習に必要なパッケージのインストール
@@ -71,6 +71,9 @@ RUN echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc && \
     : "commnet"
 RUN echo "source ~/ros2_ws/install/local_setup.bash" >> ~/.bashrc && \
     : "commnet"
+
+# psycopg2のインストール
+RUN pip install psycopg2
 
 # VSCodeのダウンロード
 RUN cd ~/ros2_ws && \
