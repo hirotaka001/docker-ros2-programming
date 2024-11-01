@@ -9,11 +9,7 @@ ENV DEBIAN_FRONTEND = noninteractive
 # インストール時に必要なパッケージのインストール
 RUN apt-get update -q && \
     apt-get upgrade -yq && \
-<<<<<<< HEAD
     apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools python3-dev libpq-dev python3-pip && \
-=======
-    apt-get install -yq bash-completion build-essential curl gnupg2 lsb-release locales git tmux wget nano vim gedit x11-apps x11-xserver-utils eog iputils-ping net-tools python3-pip && \
->>>>>>> 4548d582ef179ec8024bc834a3ca0cc9a611af29
     rm -rf /var/lib/apt/lists/*
 COPY requirements.txt ${PWD}
 RUN pip3 install -r requirements.txt
@@ -91,5 +87,7 @@ RUN cd ~/ros2_ws && \
     apt-get update -q && \
     apt-get install -yq code
 
-CMD ["/bin/sh", "-c", "source ~/.bashrc"]
-CMD ["/bin/sh", "-c", "ros2 launch telecontrol_server telecontrol_server.launch.py"]
+# CMD ["sleep", "3"]
+# CMD ["/bin/sh", "-c", "source ~/.bashrc"]
+# CMD ["sleep", "3"]
+# CMD ["/bin/sh", "-c", "ros2 launch telecontrol_server telecontrol_server.launch.py"]
